@@ -123,3 +123,9 @@ export const onSessionRestore: Session["onSessionRestore"] = (...args) => {
   const session = getDefaultSession();
   return session.onSessionRestore(...args);
 };
+
+export const triggerRenewal: Session["triggerRenewal"] = (...args) => {
+  console.log("Default session silent renewal triggered");
+  const session = getDefaultSession();
+  return session.triggerRenewal(...args);
+};

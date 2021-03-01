@@ -45,6 +45,8 @@ export default interface ILoginOptions extends ILoginInputOptions {
    * automatically, i.e., without prompting them to manually provide their credentials again).
    */
   prompt?: string;
+  // WIP
+  inIframe?: boolean;
   // Force the token type to be required (i.e. no longer optional).
   tokenType: "DPoP" | "Bearer";
 }

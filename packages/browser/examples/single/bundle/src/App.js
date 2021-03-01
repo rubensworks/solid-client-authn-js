@@ -28,6 +28,7 @@ import {
   handleIncomingRedirect,
   fetch,
   getDefaultSession,
+  triggerRenewal,
 } from "../../../../dist/index";
 
 const REDIRECT_URL = window.location;
@@ -42,9 +43,11 @@ export default function App() {
   // is redirected to the page after logging in the identity provider.
   useEffect(() => {
     // After redirect, the current URL contains login information.
-    handleIncomingRedirect(window.location.href).then((info) => {
-      setWebId(info.webId);
-      setResource(webId);
+    handleIncomingRedirect({ restorePreviousSession: true }).then((info) => {
+      if (info !== undefined) {
+        setWebId(info.webId);
+        setResource(webId);
+      }
     });
   }, [webId]);
 
@@ -82,6 +85,7 @@ export default function App() {
         <h1>Sandbox app</h1>
         <p>{webId ? `Logged in as ${webId}` : "Not logged in yet"}</p>
         <div>
+          <button onClick={() => triggerRenewal()}>Silent renewal</button>
           <form>
             <input
               type="text"

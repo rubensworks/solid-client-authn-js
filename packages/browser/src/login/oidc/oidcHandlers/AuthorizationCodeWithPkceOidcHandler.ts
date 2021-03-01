@@ -116,8 +116,12 @@ export default class AuthorizationCodeWithPkceOidcHandler
           }),
         ])
           .then(() => {
+            console.log(
+              `AuthCodeOidcHandler: inIframe=${oidcLoginOptions.inIframe}`
+            );
             redirector.redirect(req.url.toString(), {
               handleRedirect: oidcLoginOptions.handleRedirect,
+              redirectInIframe: oidcLoginOptions.inIframe,
             });
           })
           // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -156,6 +156,35 @@ export class Session extends EventEmitter {
         isLoggedIn: false,
       };
     }
+
+    // @ts-ignore
+    window.onmessage = async (evt) => {
+      if (window.frameElement) {
+        console.log("received an iframe message in iframe");
+      } else {
+        console.log("received an iframe message in main window");
+      }
+
+      // @ts-ignore
+      if (evt.origin === window.location.origin) {
+        // if (evt.source === window.frames["token-renewal"]) {
+        //   console.log("source matches")
+        // } else {
+        //   console.log("source deos not match")
+        // }
+        console.log(`event data: ${JSON.stringify(evt.data)}`);
+        if (evt.data.redirectUrl) {
+          console.log(`received redirect URL: ${evt.data.redirectUrl}`);
+          await this.handleIncomingRedirect({
+            url: evt.data.redirectUrl,
+          });
+        } else if (evt.data.error) {
+          console.log(evt.data);
+        }
+      } else {
+        console.log(`${evt.origin} does not match ${window.location.origin}`);
+      }
+    };
   }
 
   /**
@@ -200,13 +229,74 @@ export class Session extends EventEmitter {
   handleIncomingRedirect = async (
     inputOptions: string | IHandleIncomgingRedirectOptions = {}
   ): Promise<ISessionInfo | undefined> => {
-    if (this.info.isLoggedIn) {
+    const inputUrl =
+      typeof inputOptions === "string"
+        ? new URL(inputOptions)
+        : new URL(
+            (inputOptions as IHandleIncomgingRedirectOptions).url ??
+              window.location.href
+          );
+    const code = inputUrl.searchParams.get("code");
+
+    // const urlParams = typeof inputOptions === "string" ? new URLSearchParams(inputOptions) : new URLSearchParams((inputOptions as IHandleIncomgingRedirectOptions).url);
+    // const code = urlParams.get("code");
+
+    if (this.info.isLoggedIn && code === null) {
+      console.log(
+        `logged in, no code received in ${JSON.stringify(
+          inputOptions
+        )}, returning`
+      );
       return this.info;
+    } else {
+      if (this.info.isLoggedIn) {
+        console.log("Logged in, but processing new auth code");
+      } else {
+        console.log("not logged in, receiving an auth code");
+      }
     }
 
-    if (this.tokenRequestInProgress) {
+    // This is being loaded from an iframe
+    if (window.frameElement) {
+      // // @ts-ignore
+      // await document.requestStorageAccess();
+      // // @ts-ignore
+      // if(await document.hasStorageAccess()) {
+      //   console.log("the iframe has access to cookies")
+      // } else {
+      //   console.log("the iframe cannot access cookies")
+      // }
+      console.log("Being loaded from iframe");
+      const urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get("code");
+      if (code) {
+        console.log(`posting message to ${window.location.origin}`);
+        window.top.postMessage(
+          { redirectUrl: window.location.href },
+          window.location.origin
+        );
+      } else {
+        const error = urlParams.get("error");
+        const description = urlParams.get("error_description");
+        if (error) {
+          window.top.postMessage(
+            { error: error, error_description: description },
+            window.location.origin
+          );
+        }
+      }
       return undefined;
     }
+
+    console.log("not in an iframe");
+
+    if (this.tokenRequestInProgress) {
+      console.log("a request is already in progress");
+      return undefined;
+    } else {
+      console.log("no request in progress");
+    }
+
     const options =
       typeof inputOptions === "string" ? { url: inputOptions } : inputOptions;
     const url = options.url ?? window.location.href;
@@ -230,43 +320,43 @@ export class Session extends EventEmitter {
       // https://github.com/inrupt/solid-client-authn-js/pull/920/files#diff-659ac87dfd3711f4cfcea3c7bf6970980f4740fd59df45f04c7977bffaa23e98R118
       // To keep temporary code together
       // eslint-disable-next-line no-inner-declarations
-      function isValidSessionCookieReference(
-        reference: Record<string, unknown>
-      ): reference is ResourceServerSession {
-        const resourceServers = Object.keys(
-          (reference as ResourceServerSession).sessions ?? {}
-        );
-        return (
-          typeof (reference as ResourceServerSession).webId === "string" &&
-          resourceServers.length > 0 &&
-          typeof (reference as ResourceServerSession).sessions[
-            resourceServers[0]
-          ].expiration === "number"
-        );
-      }
-      const reference = JSON.parse(storedSessionCookieReference);
-      if (isValidSessionCookieReference(reference)) {
-        const resourceServers = Object.keys(reference.sessions);
-        const webIdOrigin = new URL(reference.webId).hostname;
-        const ownResourceServer = resourceServers.find((resourceServer) => {
-          return new URL(resourceServer).hostname === webIdOrigin;
-        });
-        // Usually the user's WebID is also a Resource server for them,
-        // so we pick the expiration time for that. If it doesn't exist,
-        // we just pick the first (and probably only) one:
-        const relevantServer = ownResourceServer ?? resourceServers[0];
-        // If the cookie is valid for fewer than five minutes,
-        // pretend it's not valid anymore already, to avoid small misalignments
-        // resulting in invalid states:
-        if (
-          reference.sessions[relevantServer].expiration - Date.now() >
-          5 * 60 * 1000
-        ) {
-          this.info.isLoggedIn = true;
-          this.info.webId = reference.webId;
-          return this.info;
-        }
-      }
+      // function isValidSessionCookieReference(
+      //   reference: Record<string, unknown>
+      // ): reference is ResourceServerSession {
+      //   const resourceServers = Object.keys(
+      //     (reference as ResourceServerSession).sessions ?? {}
+      //   );
+      //   return (
+      //     typeof (reference as ResourceServerSession).webId === "string" &&
+      //     resourceServers.length > 0 &&
+      //     typeof (reference as ResourceServerSession).sessions[
+      //       resourceServers[0]
+      //     ].expiration === "number"
+      //   );
+      // }
+      // const reference = JSON.parse(storedSessionCookieReference);
+      // if (isValidSessionCookieReference(reference)) {
+      //   const resourceServers = Object.keys(reference.sessions);
+      //   const webIdOrigin = new URL(reference.webId).hostname;
+      //   const ownResourceServer = resourceServers.find((resourceServer) => {
+      //     return new URL(resourceServer).hostname === webIdOrigin;
+      //   });
+      //   // Usually the user's WebID is also a Resource server for them,
+      //   // so we pick the expiration time for that. If it doesn't exist,
+      //   // we just pick the first (and probably only) one:
+      //   const relevantServer = ownResourceServer ?? resourceServers[0];
+      //   // If the cookie is valid for fewer than five minutes,
+      //   // pretend it's not valid anymore already, to avoid small misalignments
+      //   // resulting in invalid states:
+      //   if (
+      //     reference.sessions[relevantServer].expiration - Date.now() >
+      //     5 * 60 * 1000
+      //   ) {
+      //     this.info.isLoggedIn = true;
+      //     this.info.webId = reference.webId;
+      //     return this.info;
+      //   }
+      // }
     }
     // end of temporary workaround.
 
@@ -276,9 +366,11 @@ export class Session extends EventEmitter {
     );
 
     if (sessionInfo?.isLoggedIn) {
+      console.log("authentication successful, updating session information");
       this.info.isLoggedIn = sessionInfo.isLoggedIn;
       this.info.webId = sessionInfo.webId;
       this.info.sessionId = sessionInfo.sessionId;
+      this.fetch = sessionInfo.fetch;
       const currentUrl = window.localStorage.getItem(KEY_CURRENT_URL);
       if (currentUrl === null) {
         // The login event can only be triggered **after** the user has been
@@ -298,6 +390,7 @@ export class Session extends EventEmitter {
         }, sessionInfo.expirationDate - Date.now());
       }
     } else if (options.restorePreviousSession === true) {
+      console.log("Not logged in, attempting silent authentication");
       // Silent authentication happens after a refresh, which means there are no
       // OAuth params in the current location IRI. It can only succeed if a session
       // was previously logged in, in which case its ID will be present with a known
@@ -344,5 +437,19 @@ export class Session extends EventEmitter {
    */
   onSessionRestore(callback: (currentUrl: string) => unknown): void {
     this.on("sessionRestore", callback);
+  }
+
+  async triggerRenewal() {
+    const storedSessionInfo = await this.clientAuthentication.validateCurrentSession();
+    if (storedSessionInfo !== null) {
+      await this.clientAuthentication.login(this.info.sessionId, {
+        prompt: "none",
+        oidcIssuer: storedSessionInfo.issuer,
+        redirectUrl: storedSessionInfo.redirectUrl,
+        clientId: storedSessionInfo.clientAppId,
+        clientSecret: storedSessionInfo.clientAppSecret,
+        inIframe: true,
+      });
+    }
   }
 }

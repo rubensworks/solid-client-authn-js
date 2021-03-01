@@ -52,6 +52,8 @@ export interface IOidcOptions {
    * automatically, i.e., without prompting them to manually provide their credentials again).
    */
   prompt?: string;
+  // WIP
+  inIframe?: boolean;
   /**
    * True if a DPoP compatible auth_token should be requested.
    */

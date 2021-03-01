@@ -30,6 +30,7 @@
 export interface IRedirectorOptions {
   handleRedirect?: (url: string) => unknown;
   redirectByReplacingState?: boolean;
+  redirectInIframe?: boolean;
 }
 
 /**

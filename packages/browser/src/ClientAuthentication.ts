@@ -48,7 +48,6 @@ export const fetchWithCookies = (
 ): ReturnType<typeof fetch> => {
   return window.fetch(info, {
     ...init,
-    credentials: "include",
   });
 };
 
@@ -76,6 +75,7 @@ export default class ClientAuthentication {
       // This login function should take the internal IOidcOptions type as an
       // input, will be fixed later.
       prompt?: string;
+      inIframe?: boolean;
     }
   ): Promise<void> => {
     // In order to get a clean start, make sure that the session is logged out
@@ -93,6 +93,8 @@ export default class ClientAuthentication {
       options.redirectUrl ?? window.location.href
     );
 
+    console.log(`ClientAuthentication: inIframe=${options.inIframe}`);
+
     await this.loginHandler.handle({
       sessionId,
       oidcIssuer: options.oidcIssuer,
@@ -105,6 +107,7 @@ export default class ClientAuthentication {
       // Defaults to DPoP.
       tokenType: options.tokenType ?? "DPoP",
       prompt: options.prompt,
+      inIframe: options.inIframe,
     });
   };
 
@@ -178,9 +181,13 @@ export default class ClientAuthentication {
 
   handleIncomingRedirect = async (
     url: string
-  ): Promise<ISessionInfo | undefined> => {
+  ): Promise<(ISessionInfo & { fetch: typeof fetch }) | undefined> => {
+    console.log(`clientauthentication handleincomingredirect with ${url}`);
     const redirectInfo = await this.redirectHandler.handle(url);
 
+    console.log(
+      `replacing current fetch for session ${redirectInfo.sessionId}`
+    );
     this.fetch = redirectInfo.fetch;
 
     const cleanedUpUrl = new URL(url);
@@ -203,6 +210,7 @@ export default class ClientAuthentication {
       webId: redirectInfo.webId,
       sessionId: redirectInfo.sessionId,
       expirationDate: redirectInfo.expirationDate,
+      fetch: redirectInfo.fetch,
     };
   };
 }

@@ -141,6 +141,7 @@ export default class OidcLoginHandler implements ILoginHandler {
       sessionId: options.sessionId,
       handleRedirect: options.handleRedirect,
       prompt: options.prompt,
+      inIframe: options.inIframe,
     };
 
     // Call proper OIDC Handler

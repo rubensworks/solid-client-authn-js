@@ -163,7 +163,7 @@ export class AuthCodeRedirectHandler implements IRedirectHandler {
         `AuthCodeRedirectHandler cannot handle [${redirectUrl}]: it is missing one of [code, state].`
       );
     }
-
+    console.log(`authcoderedirecthandler with ${redirectUrl}`);
     const url = new URL(redirectUrl);
     const oauthState = url.searchParams.get("state") as string;
 
@@ -218,6 +218,8 @@ export class AuthCodeRedirectHandler implements IRedirectHandler {
         codeVerifier,
         storedRedirectIri
       );
+
+      console.log(`received new tokens: ${tokens.accessToken}`);
 
       // The type assertion should not be necessary...
       authFetch = await buildDpopFetch(

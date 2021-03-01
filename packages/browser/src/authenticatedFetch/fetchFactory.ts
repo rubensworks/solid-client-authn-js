@@ -64,7 +64,7 @@ async function buildDpopFetchOptions(
         dpopKey
       ),
     },
-    credentials: "include",
+    // credentials: "include",
   };
 }
 
@@ -89,7 +89,10 @@ export async function buildDpopFetch(
   _refreshToken: string | undefined,
   dpopKey: JSONWebKey
 ): Promise<typeof fetch> {
+  console.log(`building new fetch with token ${authToken}`);
   return async (url, options): Promise<Response> => {
+    // @ts-ignore
+    console.log(`Fetching for session ${this.info?.sessionId}`);
     const response = await fetch(
       url,
       await buildDpopFetchOptions(url.toString(), authToken, dpopKey, options)
