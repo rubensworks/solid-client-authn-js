@@ -1,0 +1,10 @@
+@prefix solid: <http://www.w3.org/ns/solid/terms#> .
+
+<#webid> solid:oidcRegistration """{
+    "client_id" : "http://test-app.example/app-info.ttl#webid",
+    "redirect_uris" : ["http://test-app.example/"],
+    "client_name" : "Demo app",
+    "scope" : "openid webid",
+    "grant_types" : ["authorization_code"],
+    "response_types" : ["code"],
+    }""" .
