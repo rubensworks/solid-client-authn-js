@@ -22,11 +22,11 @@
 // We only need the following imports from the Node AuthN library. Note that to
 // reuse this code "standalone", you'll have to change "../../../dist/Session"
 // into "@inrupt/solid-client-authn-node", and to npm install this module.
+import { Session } from "../../../dist/Session";
 import {
   getSessionFromStorage,
-  Session,
   getSessionIdFromStorageAll,
-} from "../../../dist/Session";
+} from "../../../dist/multiSession";
 
 import cookieSession from "cookie-session";
 
@@ -108,6 +108,9 @@ app.get("/redirect", async (req, res) => {
 
 app.get("/fetch", async (req, res, next) => {
   const session = await getSessionFromStorage(req.session!.sessionId);
+  console.log(
+    `${session?.info.sessionId} was retrieved from storage, logged in : ${session?.info.isLoggedIn}`
+  );
   if (!req.query["resource"]) {
     res
       .status(400)
