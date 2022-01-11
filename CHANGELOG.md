@@ -5,36 +5,36 @@ within this mono-repo.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+The following sections document changes that have been released already:
+
+## 1.12.0 - 2022-01-11
 
 ### New features
 
 #### node and browser
 
 - Expose `Session#authenticateHeaders` method that constructs the necessary headers to perform a given request using
-this session's authentication.
+  this session's authentication.
 
 #### browser
 
 - The `WindowToWorkerHandler` and `WorkerToWindowHandler` helpers can be used to setup a communication channel between
-the main window and a Web worker, so that the worker can perform authenticated requests, without any secrets having to
-be shared with this worker. The actual fetch requests still happen within the Web worker for optimal performance.
+  the main window and a Web worker, so that the worker can perform authenticated requests, without any secrets having to
+  be shared with this worker. The actual fetch requests still happen within the Web worker for optimal performance.
 
 ### Bugfixes
 
 #### node and browser
 
 - Passing custom headers to a session's fetch as a Headers object would result in the headers
-being overlooked.
+  being overlooked.
 
 #### oidc
 
-- Since `oidc-client` has been deprecated, and won't be maintained anymore, the 
-OIDC package now depends on a fork, `@inrupt/oidc-client`, so that we can ensure
-the dependencies are kept up-to-date. This should be transparent for users of
-`@rubensworks/solid-client-authn-browser`.
-
-The following sections document changes that have been released already:
+- Since `oidc-client` has been deprecated, and won't be maintained anymore, the
+  OIDC package now depends on a fork, `@inrupt/oidc-client`, so that we can ensure
+  the dependencies are kept up-to-date. This should be transparent for users of
+  `@rubensworks/solid-client-authn-browser`.
 
 ## 1.11.2 - 2021-08-24
 
