@@ -20,7 +20,7 @@
  */
 
 import { jest, it, describe, expect } from "@jest/globals";
-import { mockStorage } from "@inrupt/solid-client-authn-core";
+import { mockStorage } from "@rubensworks/solid-client-authn-core";
 import { EventEmitter } from "events";
 import {
   buildLoginHandler,
@@ -43,9 +43,9 @@ import AuthorizationCodeWithPkceOidcHandler from "./login/oidc/oidcHandlers/Auth
 
 jest.mock("openid-client");
 // jest.mock("cross-fetch");
-jest.mock("@inrupt/solid-client-authn-core", () => {
+jest.mock("@rubensworks/solid-client-authn-core", () => {
   const actualCoreModule = jest.requireActual(
-    "@inrupt/solid-client-authn-core"
+    "@rubensworks/solid-client-authn-core"
   ) as any;
   return {
     ...actualCoreModule,

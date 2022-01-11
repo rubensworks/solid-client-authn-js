@@ -26,7 +26,7 @@ import {
   StorageUtility,
   USER_SESSION_PREFIX,
   mockStorage,
-} from "@inrupt/solid-client-authn-core";
+} from "@rubensworks/solid-client-authn-core";
 
 import { JWK, SignJWT, parseJwk } from "@inrupt/jose-legacy-modules";
 import { EventEmitter } from "events";
@@ -45,9 +45,9 @@ import {
 } from "./login/oidc/__mocks__/IssuerConfigFetcher";
 import { LocalStorageMock } from "./storage/__mocks__/LocalStorage";
 
-jest.mock("@inrupt/solid-client-authn-core", () => {
+jest.mock("@rubensworks/solid-client-authn-core", () => {
   const actualCoreModule = jest.requireActual(
-    "@inrupt/solid-client-authn-core"
+    "@rubensworks/solid-client-authn-core"
   ) as any;
   return {
     // We only want to fetch specific functions that result in a network fetch,
@@ -571,7 +571,7 @@ describe("ClientAuthentication", () => {
       } as IIssuerConfig);
       const mockedStorage = await mockSessionStorage(sessionId);
       const coreModule = jest.requireMock(
-        "@inrupt/solid-client-authn-core"
+        "@rubensworks/solid-client-authn-core"
       ) as jest.Mocked<any>;
       coreModule.fetchJwks = jest.fn().mockRejectedValue("Not a valid JWK");
 
@@ -607,7 +607,7 @@ describe("ClientAuthentication", () => {
         }
       );
       const coreModule = jest.requireMock(
-        "@inrupt/solid-client-authn-core"
+        "@rubensworks/solid-client-authn-core"
       ) as jest.Mocked<any>;
       coreModule.fetchJwks = jest.fn(() => Promise.resolve(mockJwk()));
 
@@ -642,7 +642,7 @@ describe("ClientAuthentication", () => {
         }
       );
       const coreModule = jest.requireMock(
-        "@inrupt/solid-client-authn-core"
+        "@rubensworks/solid-client-authn-core"
       ) as jest.Mocked<any>;
       coreModule.fetchJwks = jest.fn(() => Promise.resolve(mockJwk()));
 
@@ -672,7 +672,7 @@ describe("ClientAuthentication", () => {
       );
 
       const coreModule = jest.requireMock(
-        "@inrupt/solid-client-authn-core"
+        "@rubensworks/solid-client-authn-core"
       ) as jest.Mocked<any>;
       coreModule.fetchJwks = jest.fn(() => Promise.resolve(mockAnotherJwk()));
 
@@ -702,7 +702,7 @@ describe("ClientAuthentication", () => {
       )
     );
     const coreModule = jest.requireMock(
-      "@inrupt/solid-client-authn-core"
+      "@rubensworks/solid-client-authn-core"
     ) as jest.Mocked<any>;
     coreModule.fetchJwks = jest.fn(() => Promise.resolve(mockJwk()));
 

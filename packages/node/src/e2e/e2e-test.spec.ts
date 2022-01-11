@@ -42,7 +42,7 @@ type ClientSecret = string;
 type Pod = string;
 type AuthDetails = [Pod, OidcIssuer, ClientId, ClientSecret];
 // Instructions for obtaining these credentials can be found here:
-// https://github.com/inrupt/solid-client-authn-js/blob/1a97ef79057941d8ac4dc328fff18333eaaeb5d1/packages/node/example/bootstrappedApp/README.md
+// https://github.com/rubensworks/solid-client-authn-js/blob/1a97ef79057941d8ac4dc328fff18333eaaeb5d1/packages/node/example/bootstrappedApp/README.md
 const serversUnderTest: AuthDetails[] = [
   // pod.inrupt.com:
   [

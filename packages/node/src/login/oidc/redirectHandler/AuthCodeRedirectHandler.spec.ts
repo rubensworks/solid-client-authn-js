@@ -24,7 +24,7 @@ import {
   StorageUtilityMock,
   mockStorageUtility,
   EVENTS,
-} from "@inrupt/solid-client-authn-core";
+} from "@rubensworks/solid-client-authn-core";
 import { IdTokenClaims, TokenSet } from "openid-client";
 // Until there is a broader support for submodules exports in the ecosystem,
 // (e.g. jest supports them), we'll depend on an intermediary package that exports
@@ -48,9 +48,9 @@ import { configToIssuerMetadata } from "../IssuerConfigFetcher";
 jest.mock("openid-client");
 // The fetch factory in the core module resolves cross-fetch to the environment-specific fetch
 jest.mock("cross-fetch");
-jest.mock("@inrupt/solid-client-authn-core", () => {
+jest.mock("@rubensworks/solid-client-authn-core", () => {
   const actualCoreModule = jest.requireActual(
-    "@inrupt/solid-client-authn-core"
+    "@rubensworks/solid-client-authn-core"
   ) as any;
   return {
     ...actualCoreModule,

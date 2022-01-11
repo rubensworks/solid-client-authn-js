@@ -26,8 +26,8 @@ import {
   InMemoryStorage,
   ISessionInfo,
   mockStorageUtility,
-} from "@inrupt/solid-client-authn-core";
-import { EVENTS } from "@inrupt/solid-client-authn-core/src";
+} from "@rubensworks/solid-client-authn-core";
+import { EVENTS } from "@rubensworks/solid-client-authn-core/src";
 import {
   mockClientAuthentication,
   mockCustomClientAuthentication,

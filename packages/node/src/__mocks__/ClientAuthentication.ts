@@ -26,7 +26,7 @@ import {
   ISessionInfoManager,
   IStorageUtility,
   mockStorageUtility,
-} from "@inrupt/solid-client-authn-core";
+} from "@rubensworks/solid-client-authn-core";
 import ClientAuthentication from "../ClientAuthentication";
 import { RedirectHandlerMock } from "../login/oidc/redirectHandler/__mocks__/RedirectHandler";
 import { LoginHandlerMock } from "../login/__mocks__/LoginHandler";

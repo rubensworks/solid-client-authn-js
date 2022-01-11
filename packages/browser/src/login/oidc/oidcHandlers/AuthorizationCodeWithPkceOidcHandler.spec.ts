@@ -29,7 +29,7 @@ import {
   mockStorage,
   StorageUtility,
   StorageUtilityMock,
-} from "@inrupt/solid-client-authn-core";
+} from "@rubensworks/solid-client-authn-core";
 import { jest, it, describe, expect } from "@jest/globals";
 import AuthorizationCodeWithPkceOidcHandler from "./AuthorizationCodeWithPkceOidcHandler";
 import canHandleTests from "./OidcHandlerCanHandleTest";
@@ -37,7 +37,7 @@ import { SessionInfoManagerMock } from "../../../sessionInfo/__mocks__/SessionIn
 import { standardOidcOptions } from "../__mocks__/IOidcOptions";
 import { RedirectorMock } from "../__mocks__/Redirector";
 
-jest.mock("@inrupt/oidc-client-ext");
+jest.mock("@rubensworks/oidc-client-ext");
 
 const expectedSigninRedirectUrl = "https://test";
 
@@ -46,7 +46,7 @@ const mockOidcModule = (
   state = "test state"
 ) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const oidcModule = jest.requireMock("@inrupt/oidc-client-ext") as any;
+  const oidcModule = jest.requireMock("@rubensworks/oidc-client-ext") as any;
   oidcModule.OidcClient = jest.fn().mockReturnValue({
     createSigninRequest: (jest.fn() as any).mockResolvedValue({
       url,

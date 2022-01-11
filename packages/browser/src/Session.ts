@@ -29,7 +29,7 @@ import {
   ISessionInfo,
   IStorage,
   ResourceServerSession,
-} from "@inrupt/solid-client-authn-core";
+} from "@rubensworks/solid-client-authn-core";
 import { v4 } from "uuid";
 import ClientAuthentication from "./ClientAuthentication";
 import { getClientAuthenticationWithDependencies } from "./dependencies";
@@ -360,7 +360,7 @@ export class Session extends EventEmitter {
       options.useEssSession === true
     ) {
       // TOOD: Re-use the type used when writing this data:
-      // https://github.com/inrupt/solid-client-authn-js/pull/920/files#diff-659ac87dfd3711f4cfcea3c7bf6970980f4740fd59df45f04c7977bffaa23e98R118
+      // https://github.com/rubensworks/solid-client-authn-js/pull/920/files#diff-659ac87dfd3711f4cfcea3c7bf6970980f4740fd59df45f04c7977bffaa23e98R118
       // To keep temporary code together
       // eslint-disable-next-line no-inner-declarations
       function isValidSessionCookieReference(

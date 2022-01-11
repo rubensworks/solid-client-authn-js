@@ -22,11 +22,11 @@
 import {
   ILoginHandler,
   AggregateHandler,
-} from "@inrupt/solid-client-authn-core";
+} from "@rubensworks/solid-client-authn-core";
 import { jest, it, describe, expect } from "@jest/globals";
 import AggregateLoginHandler from "./AggregateLoginHandler";
 
-jest.mock("@inrupt/solid-client-authn-core");
+jest.mock("@rubensworks/solid-client-authn-core");
 
 describe("AggregateLoginHandler", () => {
   it("should pass injected handlers to its superclass", () => {

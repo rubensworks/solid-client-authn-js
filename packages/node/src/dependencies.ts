@@ -37,7 +37,7 @@ import {
   ILoginHandler,
   ISessionInfoManager,
   IRedirectHandler,
-} from "@inrupt/solid-client-authn-core";
+} from "@rubensworks/solid-client-authn-core";
 import StorageUtilityNode from "./storage/StorageUtility";
 import ClientAuthentication from "./ClientAuthentication";
 import OidcLoginHandler from "./login/oidc/OidcLoginHandler";

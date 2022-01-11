@@ -35,8 +35,8 @@ import {
   ILoginOptions,
   fetchJwks,
   HeadersAuthenticator,
-} from "@inrupt/solid-client-authn-core";
-import { removeOidcQueryParam } from "@inrupt/oidc-client-ext";
+} from "@rubensworks/solid-client-authn-core";
+import { removeOidcQueryParam } from "@rubensworks/oidc-client-ext";
 import { jwtVerify, parseJwk } from "@inrupt/jose-legacy-modules";
 import { EventEmitter } from "events";
 import { KEY_CURRENT_SESSION } from "./constant";

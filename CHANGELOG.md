@@ -32,7 +32,7 @@ being overlooked.
 - Since `oidc-client` has been deprecated, and won't be maintained anymore, the 
 OIDC package now depends on a fork, `@inrupt/oidc-client`, so that we can ensure
 the dependencies are kept up-to-date. This should be transparent for users of
-`@inrupt/solid-client-authn-browser`.
+`@rubensworks/solid-client-authn-browser`.
 
 The following sections document changes that have been released already:
 
@@ -104,7 +104,7 @@ along with a refresh token was mistaken for a static client login, leading to an
 
 - A transitive dependency used submodule exports, which aren't supported yet by
 significant parts of the ecosystem, such as Jest. With an internal change, we enabled
-using @inrupt/solid-client-authn-node without encountering submodule exports.
+using @rubensworks/solid-client-authn-node without encountering submodule exports.
 
 ## 1.10.0 - 2021-07-28
 
@@ -192,7 +192,7 @@ to their identity provider (which requires some technical background).
 
 - With Node.js version 10 [reaching end-of-life on
   2021-04-30](https://github.com/nodejs/Release),
-  @inrupt/solid-client-authn-node no longer actively supports it. It will not
+  @rubensworks/solid-client-authn-node no longer actively supports it. It will not
   stop working right away, but it will no longer be actively tested and no
   special effort will be made to keep it from breaking.
 
@@ -508,7 +508,7 @@ The following sections document changes that have been released already:
 
 ### Bugfix
 
-- Addressed part of issue https://github.com/inrupt/solid-client-authn-js/issues/684,
+- Addressed part of issue https://github.com/rubensworks/solid-client-authn-js/issues/684,
 by providing a `browser` entry in the `package.json` file. The ES modules export will
 be adressed in a different PR. 
 - The WebID is now set on the session when logging in a script.
@@ -547,8 +547,8 @@ from being possible, and now after a login that does not require a redirect, the
 
 ### New features
 
-- NodeJS support: a new NPM package, `@inrupt/solid-client-authn-node`, is now available to use authentication in a server environment. 
-- In addition to the features supported by the browser version, `@inrupt/solid-client-authn-node` supports the refresh token grant, which 
+- NodeJS support: a new NPM package, `@rubensworks/solid-client-authn-node`, is now available to use authentication in a server environment. 
+- In addition to the features supported by the browser version, `@rubensworks/solid-client-authn-node` supports the refresh token grant, which 
 makes it possible to maintain long-lived sessions without re-involving the user.
 
 ### Bugfixes
@@ -569,7 +569,7 @@ we will bump the major version when we change our publicly documented interface.
 
 ### Breaking changes
 
-- The package `@inrupt/oidc-dpop-client-browser` is now called `@inrupt/oidc-client-ext`.
+- The package `@inrupt/oidc-dpop-client-browser` is now called `@rubensworks/oidc-client-ext`.
 - The public API doesn't expect environement-specific types anymore. in particular, `URL` has been replaced with `string`.
 
 ### Non-breaking changes

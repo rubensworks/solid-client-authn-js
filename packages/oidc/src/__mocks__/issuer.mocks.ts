@@ -27,7 +27,7 @@ import {
   IClient,
   IIssuerConfig,
   KeyPair,
-} from "@inrupt/solid-client-authn-core";
+} from "@rubensworks/solid-client-authn-core";
 import { TokenEndpointInput } from "../dpop/tokenExchange";
 
 /* eslint-disable camelcase */

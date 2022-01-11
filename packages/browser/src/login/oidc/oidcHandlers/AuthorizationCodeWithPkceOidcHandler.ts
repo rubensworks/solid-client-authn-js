@@ -33,8 +33,8 @@ import {
   IRedirector,
   IStorageUtility,
   LoginResult,
-} from "@inrupt/solid-client-authn-core";
-import { OidcClient } from "@inrupt/oidc-client-ext";
+} from "@rubensworks/solid-client-authn-core";
+import { OidcClient } from "@rubensworks/oidc-client-ext";
 
 /**
  * @hidden

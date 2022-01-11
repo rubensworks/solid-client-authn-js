@@ -19,7 +19,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { InMemoryStorage } from "@inrupt/solid-client-authn-core";
+import { InMemoryStorage } from "@rubensworks/solid-client-authn-core";
 import { jest, it, describe, expect } from "@jest/globals";
 import {
   mockClientAuthentication,

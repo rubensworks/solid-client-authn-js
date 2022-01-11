@@ -26,7 +26,7 @@ import {
   ILoginHandler,
   mockStorageUtility,
   ILoginOptions,
-} from "@inrupt/solid-client-authn-core";
+} from "@rubensworks/solid-client-authn-core";
 import { Session } from "inspector";
 import { EventEmitter } from "events";
 import { LoginHandlerMock } from "./login/__mocks__/LoginHandler";

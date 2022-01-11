@@ -19,7 +19,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { mockStorageUtility } from "@inrupt/solid-client-authn-core";
+import { mockStorageUtility } from "@rubensworks/solid-client-authn-core";
 import { getClientAuthenticationWithDependencies } from "./dependencies";
 import ClientAuthentication from "./ClientAuthentication";
 

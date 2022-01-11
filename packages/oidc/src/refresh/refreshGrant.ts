@@ -26,7 +26,7 @@ import {
   IIssuerConfig,
   KeyPair,
   TokenEndpointResponse,
-} from "@inrupt/solid-client-authn-core";
+} from "@rubensworks/solid-client-authn-core";
 // NB: once this is rebased on #1560, change dependency to core package.
 import formUrlEncoded from "form-urlencoded";
 import { validateTokenEndpointResponse } from "../dpop/tokenExchange";

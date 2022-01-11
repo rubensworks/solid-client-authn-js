@@ -28,9 +28,9 @@ import {
   IIssuerConfigFetcher,
   USER_SESSION_PREFIX,
   IIssuerConfig,
-} from "@inrupt/solid-client-authn-core";
+} from "@rubensworks/solid-client-authn-core";
 import { jest, it, describe, expect } from "@jest/globals";
-import { CodeExchangeResult } from "@inrupt/oidc-client-ext";
+import { CodeExchangeResult } from "@rubensworks/oidc-client-ext";
 import { Response } from "cross-fetch";
 import { JWK, parseJwk } from "@inrupt/jose-legacy-modules";
 import {
@@ -155,7 +155,7 @@ const mockDefaultRedirectStorage = () =>
     },
   });
 
-jest.mock("@inrupt/oidc-client-ext");
+jest.mock("@rubensworks/oidc-client-ext");
 
 jest.useFakeTimers();
 
@@ -166,7 +166,9 @@ const defaultJwt = {
 // eslint-disable-next-line  @typescript-eslint/no-explicit-any
 function mockOidcClient(jwt: typeof defaultJwt = defaultJwt): any {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const mockedOidcClient = jest.requireMock("@inrupt/oidc-client-ext") as any;
+  const mockedOidcClient = jest.requireMock(
+    "@rubensworks/oidc-client-ext"
+  ) as any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   mockedOidcClient.generateJwkForDpop = (jest.fn() as any).mockResolvedValue(
     mockJwk()
@@ -545,7 +547,7 @@ describe("AuthCodeRedirectHandler", () => {
     it("returns null for the expiration time if none was provided", async () => {
       mockOidcClient();
       const mockedOidcClient = jest.requireMock(
-        "@inrupt/oidc-client-ext"
+        "@rubensworks/oidc-client-ext"
       ) as any;
       jest.spyOn(mockedOidcClient, "getBearerToken").mockReturnValueOnce({
         accessToken: mockAccessTokenBearer(),
@@ -784,7 +786,7 @@ describe("AuthCodeRedirectHandler", () => {
     mockOidcClient();
     const mockedStorage = mockDefaultRedirectStorage();
     const coreModule = jest.requireActual(
-      "@inrupt/solid-client-authn-core"
+      "@rubensworks/solid-client-authn-core"
     ) as any;
     const mockAuthenticatedFetchBuild = jest.spyOn(
       coreModule,

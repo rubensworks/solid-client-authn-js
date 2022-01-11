@@ -25,7 +25,7 @@ import "regenerator-runtime/runtime";
 // import {
 //   Session,
 //   getClientAuthenticationWithDependencies,
-// } from "@inrupt/solid-client-authn-browser";
+// } from "@rubensworks/solid-client-authn-browser";
 import { Session } from "../../../dist/Session";
 import { getClientAuthenticationWithDependencies } from "../../../dist/dependencies";
 

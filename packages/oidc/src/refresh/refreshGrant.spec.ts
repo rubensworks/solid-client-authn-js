@@ -34,9 +34,9 @@ import {
 } from "../__mocks__/issuer.mocks";
 import { refresh } from "./refreshGrant";
 
-jest.mock("@inrupt/solid-client-authn-core", () => {
+jest.mock("@rubensworks/solid-client-authn-core", () => {
   const actualCoreModule = jest.requireActual(
-    "@inrupt/solid-client-authn-core"
+    "@rubensworks/solid-client-authn-core"
   ) as any;
   return {
     ...actualCoreModule,

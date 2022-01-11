@@ -22,7 +22,7 @@
 /**
  * Test for AuthorizationCodeWithPkceOidcHandler
  */
-import { mockStorageUtility } from "@inrupt/solid-client-authn-core";
+import { mockStorageUtility } from "@rubensworks/solid-client-authn-core";
 import { jest, it, describe } from "@jest/globals";
 import { IdTokenClaims, TokenSet } from "openid-client";
 // Until there is a broader support for submodules exports in the ecosystem,
@@ -42,9 +42,9 @@ import { mockDefaultIssuerConfig } from "../__mocks__/IssuerConfigFetcher";
 
 jest.mock("openid-client");
 jest.mock("cross-fetch");
-jest.mock("@inrupt/solid-client-authn-core", () => {
+jest.mock("@rubensworks/solid-client-authn-core", () => {
   const actualCoreModule = jest.requireActual(
-    "@inrupt/solid-client-authn-core"
+    "@rubensworks/solid-client-authn-core"
   ) as any;
   return {
     ...actualCoreModule,
@@ -322,7 +322,7 @@ describe("handle", () => {
     tokens.refresh_token = "some refresh token";
     setupOidcClientMock(tokens);
     const coreModule = jest.requireMock(
-      "@inrupt/solid-client-authn-core"
+      "@rubensworks/solid-client-authn-core"
     ) as any;
     const mockAuthenticatedFetchBuild = jest.spyOn(
       coreModule,

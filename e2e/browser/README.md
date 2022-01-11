@@ -1,6 +1,6 @@
 # End-2-End Browser Tests
 
-TestCafe end-to-end tests for [solid-client-authn.js](https://github.com/inrupt/solid-client-authn-js).
+TestCafe end-to-end tests for [solid-client-authn.js](https://github.com/rubensworks/solid-client-authn-js).
 These can be run manually locally, or automatically in CI.
 
 ## Running locally
@@ -38,7 +38,7 @@ DEMO_CLIENT_APP_URL="http://localhost:3001"
 
 ## Configuring CI
 
-To change the credentials used in CI, see https://github.com/inrupt/solid-client-authn-js/settings/secrets/.
+To change the credentials used in CI, see https://github.com/rubensworks/solid-client-authn-js/settings/secrets/.
 
 When adding new secrets, make sure to also expose them to the CI job using /.github/workflows/e2e-browser.yml.
 (Specifically, add them under `env` in the "Run tests" job.)

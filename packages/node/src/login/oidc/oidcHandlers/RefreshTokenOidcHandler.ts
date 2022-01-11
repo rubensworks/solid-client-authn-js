@@ -44,7 +44,7 @@ import {
   buildAuthenticatedFetch,
   HeadersAuthenticator,
   buildHeadersAuthenticator,
-} from "@inrupt/solid-client-authn-core";
+} from "@rubensworks/solid-client-authn-core";
 // Until there is a broader support for submodules exports in the ecosystem,
 // (e.g. jest supports them), we'll depend on an intermediary package that exports
 // a single ES module. The submodule exports should be kept commented out to make

@@ -29,7 +29,7 @@ import {
   generateDpopKeyPair,
   mockStorageUtility,
   USER_SESSION_PREFIX,
-} from "@inrupt/solid-client-authn-core";
+} from "@rubensworks/solid-client-authn-core";
 // Until there is a broader support for submodules exports in the ecosystem,
 // (e.g. jest supports them), we'll depend on an intermediary package that exports
 // a single ES module. The submodule exports should be kept commented out to make
@@ -51,9 +51,9 @@ import {
 
 jest.mock("cross-fetch");
 
-jest.mock("@inrupt/solid-client-authn-core", () => {
+jest.mock("@rubensworks/solid-client-authn-core", () => {
   const actualCoreModule = jest.requireActual(
-    "@inrupt/solid-client-authn-core"
+    "@rubensworks/solid-client-authn-core"
   ) as any;
   return {
     ...actualCoreModule,
@@ -354,7 +354,7 @@ describe("RefreshTokenOidcHandler", () => {
     tokenSet.refreshToken = "some rotated refresh token";
     const mockedTokenRefresher = mockTokenRefresher(tokenSet);
     const coreModule = jest.requireMock(
-      "@inrupt/solid-client-authn-core"
+      "@rubensworks/solid-client-authn-core"
     ) as any;
     const mockAuthenticatedFetchBuild = jest.spyOn(
       coreModule,

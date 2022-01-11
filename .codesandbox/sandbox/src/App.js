@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Session as AuthSession } from "@inrupt/solid-client-authn-browser";
+import { Session as AuthSession } from "@rubensworks/solid-client-authn-browser";
 
 const REDIRECT_URL = window.location;
 
