@@ -9,6 +9,8 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 The following changes have been implemented but not released yet:
 
+## [@rubensworks/solid-client-authn-*] 1.13.0 - 2022-07-15
+
 ### New features
 
 Merge @rubensworks/solid-client-authn-* 1.12.1 and @rubensworks/solid-client-authn-*
